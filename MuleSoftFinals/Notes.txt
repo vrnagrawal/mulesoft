@@ -1,0 +1,88 @@
+POST:
+curl "http://ec2-3-133-161-109.us-east-2.compute.amazonaws.com/api/todos" \
+	-X POST \
+	-d "{ \"task\": \"Design the API\", \"priority\": 1 }\n"
+
+
+Cloud Hub:
+https://anypoint.mulesoft.com/cloudhub/#/console/applications/cloudhub/varuncardng/settings
+
+AWS:
+http://ec2-3-133-161-109.us-east-2.compute.amazonaws.com/api/todos
+
+
+1. How to set up rate limit?
+API Manager -> API Admin -> Policies
+
+2. Download proxy binary from Cloudhub-https://anypoint.mulesoft.com/cloudhub/#/console/applications/cloudhub/varuncardng/settings
+
+3. View API Docs and test mocking service
+Exchange View
+
+4. View graphs https://anypoint.mulesoft.com/cloudhub/#/console/applications/cloudhub/varuncardng/dashboard
+Runtime Manager -> Click API -> Dashboard
+
+5. Gateway Logs
+https://anypoint.mulesoft.com/cloudhub/#/console/applications/cloudhub/varuncardng/logging
+
+
+
+AWS:
+1. Login to EC2-ssh -i 'C:\\Users\\Ankita\\workspace\\terraform-aws-docker-master\\terrafrom_keypair.pem' ec2-user@3.133.161.109
+2. 
+	sudo groupadd docker
+	Add your user to the docker group.
+	sudo usermod -aG docker $USER
+	Log out and log back in so that your group membership is re-evaluated.
+	Verify that you can run docker commands without sudo.
+3. Start docker  docker run -p 80:8080 vrnagrawal/raml-spring
+
+**** Mocking service to start testing and consuming API'service
+
+
+RAML:
+#%RAML 0.8
+---
+title: RAML SpringBoot TODOs API
+baseUri:  http://ec2-3-133-161-109.us-east-2.compute.amazonaws.com/api
+version: v1
+mediaType: application/json
+
+/todos:
+  description: "The Todos resource."
+  get:
+    description: "Returns a list of todos."
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              [
+                { "id": 1, "task": "Design the API", "priority": 1 },
+                { "id": 2, "task": "Generate the interfaces", "priority": 2 }
+              ]
+  post:
+    description: "Generate a new todo."
+    body:
+      application/json:
+        example: |
+          { "task": "Design the API", "priority": 1 }
+    responses:
+      201:
+        description: "Todo created"
+      400:
+        description: "Can't create Todo from provided entity"
+  /{id}:
+    uriParameters:
+      id:
+        type: integer
+    get:
+      description: "Return the todo with given id."
+      responses:
+        200:
+          body:
+            application/json:
+              example: |
+                 { "id": 1, "task": "Design the API", "priority": 1 }
+        404:
+          description: "Todo with provided id not found"

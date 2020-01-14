@@ -1,0 +1,57 @@
+FAQ:
+API returns 503 Service Unavailable error to clients
+This issue may affect API's deployed to Mule Runtime 3.8x or greater and is caused by a new feature introduced in 3.8x, the Gatekeeper.
+Gatekeeper is a process on the mule server which by default blocks any incoming request to the API if the API has not been successfully paired with API Manager to receive appropriate policies.
+
+Gatekeeper can be disabled by starting mule with the following start-up parameter:
+For Mule Runtime 3.x
+anypoint.platform.gatekeeper=false
+For Mule Runtime 4.x
+anypoint.platform.gatekeeper=disabled
+
+mule -M-Danypoint.platform.gatekeeper=disabled
+
+RAML Changes:
+Works:C:\Users\vrnag\workspace\mule-enterprise-standalone-4.2.2\apps\onpremisegoogle\com\mulesoft\anypoint\gw\api-localhost.raml
+NoUse:
+C:\Users\vrnag\workspace\mule-enterprise-standalone-4.2.2\apps\onpremisegoogle\META-INF\mule-src\api-gateway-sample-rest-proxy\src\main\resources\com\mulesoft\anypoint\gw\api-localhost.raml
+
+Config Changes:
+Works:C:\Users\vrnag\workspace\mule-enterprise-standalone-4.2.2\apps\onpremisegoogle\config.properties
+NoUse:C:\Users\vrnag\workspace\mule-enterprise-standalone-4.2.2\apps\onpremisegoogle\META-INF\mule-src\api-gateway-sample-rest-proxy\src\main\resources\config.properties
+
+157.245.228.29: API Hosted on DigiOcean
+http://165.227.201.145/ : On Premise Server Hosted on Digital Ocean
+scp -r apps root@157.245.228.29:/root/varun
+
+Assets:
+Card NG API with Policies
+CardNG Todos
+
+API Manager:
+Card NG API with Policies: Implementation URL: http://157.245.228.29/api Proxy App Name:cardngtodoswithpolicy.cloudhub.io
+CardNG Todos:Implementation URL: http://ec2-3-17-133-255.us-east-2.compute.amazonaws.com/api
+ Prox App Name: cardng
+ 
+Runtime Manager:
+Card NG API with Policies: Implementation URL: http://157.245.228.29/api Proxy App Name:cardngtodoswithpolicy.cloudhub.io
+CardNG Todos:Implementation URL: http://ec2-3-17-133-255.us-east-2.compute.amazonaws.com/api
+ Prox App Name: cardng
+ 
+Digital Ocean Servers:
+1. 165.227.201.145 - On Premise( Server, BackEnd App on same server, No connection to Anypoint Platfrom)
+   API Proxy URI: http://165.227.201.145:8082/finance,http://165.227.201.145:8082/news,http://165.227.201.145:8081/todos
+   Implentation URI: www.yahoo.com,http://165.227.201.145:8080/api/todos    
+   
+2. 157.245.134.100 - Hybrid( On Premise Server - Routes to API On 157.245.228.29, Connected to Anypoint Platform)
+    API Manager: hybriddeploytodos
+    Implementation URI: http://157.245.228.29/api
+    API Proxy URI: http://157.245.134.100:8081/todos
+3. 157.245.228.29  - CloudHub(Todos BackEnd API here only)
+    API Manager: Card NG API with Policies
+    Implementation URI: http://157.245.228.29/api
+    API Proxy URL:http://cardngtodoswithpolicy.us-e2.cloudhub.io/todos
+4. AWS
+    API Manager: CardNG Todos
+    Implementation URI: http://ec2-3-17-133-255.us-east-2.compute.amazonaws.com/api
+    API Proxy URI: http://cardng.us-e2.cloudhub.io/todos
