@@ -1,0 +1,34 @@
+{
+  "configs": [
+    "inbound-config.xml",
+    "outbound-config.xml",
+    "http-proxy.xml"
+  ],
+  "secureProperties": [
+    "inbound.keystore.password_15955485",
+    "inbound.keystore.keyPassword_15955485",
+    "inbound.truststore.password_15955485",
+    "outbound.keystore.password_15955485",
+    "outbound.keystore.keyPassword_15955485",
+    "outbound.truststore.password_15955485",
+    "anypoint.platform.client_secret_15955485"
+  ],
+  "redeploymentEnabled": true,
+  "name": "org.mule.examples:api-gateway-sample-rest-proxy:2.1.0",
+  "minMuleVersion": "4.1.1",
+  "requiredProduct": "MULE_EE",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "mule",
+    "attributes": {
+      "exportedPackages": [],
+      "exportedResources": [
+        "com/mulesoft/anypoint/gw/api-localhost.raml",
+        "config.properties"
+      ]
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "mule",
+    "attributes": {}
+  }
+}

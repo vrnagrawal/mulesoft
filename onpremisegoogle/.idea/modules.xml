@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/onpremisegoogle.iml" filepath="$PROJECT_DIR$/onpremisegoogle.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../onpremiseyahoo/onpremiseyahoo.iml" filepath="$PROJECT_DIR$/../onpremiseyahoo/onpremiseyahoo.iml" />
+    </modules>
+  </component>
+</project>
